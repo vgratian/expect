@@ -1,7 +1,7 @@
 package assert
 
 import (
-	"github.com/vgratian/expect/internal"
+	"github.com/vgratian/go-testutil/internal"
 	"testing"
 )
 
