@@ -1,4 +1,4 @@
-package assert
+package expect
 
 import (
 	"github.com/vgratian/go-testutil/internal"
