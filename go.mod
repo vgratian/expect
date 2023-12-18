@@ -1,3 +1,3 @@
-module github.com/vgratian/go-testutils
+module github.com/vgratian/go-testutil
 
 go 1.20
