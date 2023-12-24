@@ -1,4 +1,8 @@
-Simple, lightweight library for go tests.
+Helper function for testing. Highlights passing and failing tests in colors. The library contains two packages, `expect` and `assert` which provide identical function, with the only different that assert-functions will abort execution of the current test, while expect-functions will continue.
+
+The output looks something like this:
+
+![screenshot](example.png)
 
 ## Examples
 
