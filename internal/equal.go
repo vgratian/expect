@@ -6,10 +6,10 @@ import (
 
 func Equal[T comparable](t *testing.T, fatal bool, expected, actual T, labels ...string) {
 	if actual == expected {
-		logPass(t, "expected %v", labels, expected)
+		logPass(t, "expected '%v'", labels, expected)
 		return
 	}
-	logFail(t, "expected %v, actual %v", labels, expected, actual)
+	logFail(t, "expected '%v', actual '%v'", labels, expected, actual)
 	if fatal {
 		t.FailNow()
 	}
@@ -17,7 +17,7 @@ func Equal[T comparable](t *testing.T, fatal bool, expected, actual T, labels ..
 
 func NotEqual[T comparable](t *testing.T, fatal bool, notExpected, actual T, labels ...string) {
 	if actual != notExpected {
-		logPass(t, "actual %v, expected not '%v'", labels, actual, notExpected)
+		logPass(t, "actual '%v', expected not '%v'", labels, actual, notExpected)
 		return
 	}
 
