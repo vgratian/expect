@@ -28,19 +28,16 @@ func formatMessage(status, prefix, format string, values ...interface{}) string 
 	}
 	if format != "" {
 		return status + " - " + prefix + fmt.Sprintf(format, values...)
-		//return fmt.Sprintf("%s - %s: %s", status, prefix, fmt.Sprintf(format, values...))
 	}
-	//if format == "" {
-	//	return fmt.Sprintf("%s - %s", status, prefix)
-	//}
-	//return fmt.Sprintf("%s - %s: %s", status, prefix, fmt.Sprintf(format, values...))
 	return status + " - " + prefix
 }
 
 func logPass(t *testing.T, format string, labels []string, values ...interface{}) {
+	t.Helper()
 	t.Log(formatMessage(statusPass, prefixFromLabels(labels...), format, values...))
 }
 
 func logFail(t *testing.T, format string, labels []string, values ...interface{}) {
+	t.Helper()
 	t.Error(formatMessage(statusFail, prefixFromLabels(labels...), format, values...))
 }

@@ -7,6 +7,7 @@ type Numeric interface {
 }
 
 func Greater[T Numeric](t *testing.T, fatal bool, a, b T, labels ...string) {
+	t.Helper()
 	if a > b {
 		logPass(t, "expected greater: %v > %v", labels, a, b)
 		return
@@ -18,6 +19,7 @@ func Greater[T Numeric](t *testing.T, fatal bool, a, b T, labels ...string) {
 }
 
 func Less[T Numeric](t *testing.T, fatal bool, a, b T, labels ...string) {
+	t.Helper()
 	if a < b {
 		logPass(t, "expected less: %v < %v", labels, a, b)
 		return
@@ -29,6 +31,7 @@ func Less[T Numeric](t *testing.T, fatal bool, a, b T, labels ...string) {
 }
 
 func GreaterOrEqual[T Numeric](t *testing.T, fatal bool, a, b T, labels ...string) {
+	t.Helper()
 	if a >= b {
 		logPass(t, "expected greater or equal: %v ≥ %v", labels, a, b)
 		return
@@ -40,6 +43,7 @@ func GreaterOrEqual[T Numeric](t *testing.T, fatal bool, a, b T, labels ...strin
 }
 
 func LessOrEqual[T Numeric](t *testing.T, fatal bool, a, b T, labels ...string) {
+	t.Helper()
 	if a <= b {
 		logPass(t, "expected less or equal: %v ≤ %v", labels, a, b)
 		return

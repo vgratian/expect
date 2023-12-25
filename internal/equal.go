@@ -5,6 +5,7 @@ import (
 )
 
 func Equal[T comparable](t *testing.T, fatal bool, expected, actual T, labels ...string) {
+	t.Helper()
 	if actual == expected {
 		logPass(t, "expected '%v'", labels, expected)
 		return
@@ -16,6 +17,7 @@ func Equal[T comparable](t *testing.T, fatal bool, expected, actual T, labels ..
 }
 
 func NotEqual[T comparable](t *testing.T, fatal bool, notExpected, actual T, labels ...string) {
+	t.Helper()
 	if actual != notExpected {
 		logPass(t, "actual '%v', expected not '%v'", labels, actual, notExpected)
 		return
@@ -28,6 +30,7 @@ func NotEqual[T comparable](t *testing.T, fatal bool, notExpected, actual T, lab
 }
 
 func EqualSlice[T comparable](t *testing.T, fatal bool, expected, actual []T, labels ...string) {
+	t.Helper()
 	if areEqualSlices(expected, actual) {
 		logPass(t, "expected '%v'", labels, expected)
 		return

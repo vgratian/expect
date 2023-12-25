@@ -3,6 +3,7 @@ package internal
 import "testing"
 
 func Nil(t *testing.T, fatal bool, ptr interface{}, labels ...string) {
+	t.Helper()
 	if ptr == nil {
 		logPass(t, "expected nil", labels)
 		return
@@ -15,6 +16,7 @@ func Nil(t *testing.T, fatal bool, ptr interface{}, labels ...string) {
 
 // NotNil fails the test if a pointer is nil
 func NotNil(t *testing.T, fatal bool, ptr interface{}, labels ...string) {
+	t.Helper()
 	if ptr != nil {
 		logPass(t, "expected not nil", labels)
 		return

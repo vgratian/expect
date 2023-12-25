@@ -3,6 +3,7 @@ package internal
 import "testing"
 
 func Error(t *testing.T, fatal bool, err error, labels ...string) {
+	t.Helper()
 	if err != nil {
 		logPass(t, "expected error - '%s'", labels, err.Error())
 		return
@@ -14,6 +15,7 @@ func Error(t *testing.T, fatal bool, err error, labels ...string) {
 }
 
 func NoError(t *testing.T, fatal bool, err error, labels ...string) {
+	t.Helper()
 	if err == nil {
 		logPass(t, "expected no error", labels)
 		return
