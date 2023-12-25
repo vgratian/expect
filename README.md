@@ -1,4 +1,6 @@
-Helper function for testing. Highlights passing and failing tests in colors. The library contains two packages, `expect` and `assert` which provide identical function, with the only different that assert-functions will abort execution of the current test, while expect-functions will continue.
+Helper functions for testing with color highlighting of passing and failing tests. This makes it easier to spot failing tests when you have a big chunk of tests running.
+
+The library contains two packages, `expect` and `assert` which provide identical set of functions, but `expect` will continue execution after failure, while `assert` will abort.
 
 The output looks something like this:
 
@@ -6,59 +8,77 @@ The output looks something like this:
 
 ## Examples
 
-### Equal, Greater, Less
-
+Numeric comparison:
 ```go
+package add
+
+import (
+	"github.com/vgratian/go-testutil/expect"
+	"testing"
+)
+
+// function we want to test
 func Add(a,b int) int {
 	return a + b
 }
 
 func TestAdd(t *testing.T) {
 	x := Add(1,2)
-	expect.Equal(t, "Add", 3, x)
-	expect.Greater(t, "Add", 2, x)
+	expect.Equal(t, 3, x)
+	expect.Less(t, 2, x)
 	
 	y := Add(x, 1)
-	expect.Less(t, "Add", x, y)
+	expect.Greater(t, x, y)
 }
 ```
 
-### EqualSlice
+String comparison:
+```go
+func TestStrings(t *testing.T) {
+	a := "a"
+	b := "b"
+	expect.NotEqual(t, a, b)
+	
+	b = "a"
+	expect.Equal(t, a, b)
+}
+```
+
+Slice comparison:
 
 ```go
 func TestSlices(t *testing.T) {
-	
 	x := []float32{0.1, 0.001}
 	y := []float32{0.1, 0.001}
-	expect.EqualSlice(t, "floats", x, y) // will pass
+	expect.EqualSlice(t, x, y) // will pass
 	
 	a := []string{"a", "b"}
 	b := []string{"b", "a"}
-	expect.EqualSlice(t, "strings", a, b) // will fail
+	expect.EqualSlice(t, a, b) // will fail
 }
 ```
 
-### Error, NoError, Nil, NotNil
+Error and pointer validation
 ```go
-func TestErrors(t *testing.T) {
-	var err error
-	expect.NoError(t, "error", err)
-	expect.Nil(t, "error", err)
-	
-	err = fmt.Errorf("error")
-	expect.Error(t, "error", err)
-	expect.NotNil(t, "error", err)
-}
-```
+package example
 
-### Return value
-All functions return a bool indicating whether test was passed or not.
-```go
-func TestExample(t *testing.T) {
-	err := foo()
-	ok := expect.NoError(err, "error from foo", err)
-	if !ok {
-		t.Fatal()
-	}
+import (
+	"github.com/vgratian/go-testutil/assert"
+	"github.com/vgratian/go-testutil/expect"
+	"testing"
+)
+func TestWithGoodArgs(t *testing.T) {
+	obj, err := GetObj("good args")
+	assert.NoError(t, err) // assert: stop execution on error
+	assert.NotNil(t, obj)
+	// continue testing ...
+	expect.Greater(t, obj.Count, 0)
+	// ...
+}
+
+func TestWithBadArgs(t *testing.T) {
+	obj, err := GetObj("bad args")
+	expect.Error(t, err)
+	expect.Nil(t, obj)
 }
 ```
