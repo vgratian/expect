@@ -1,10 +1,13 @@
 package internal
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func Nil(t *testing.T, fatal bool, ptr interface{}, labels ...string) {
 	t.Helper()
-	if ptr == nil {
+	if isNil(ptr) {
 		logPass(t, "expected nil", labels)
 		return
 	}
@@ -17,7 +20,7 @@ func Nil(t *testing.T, fatal bool, ptr interface{}, labels ...string) {
 // NotNil fails the test if a pointer is nil
 func NotNil(t *testing.T, fatal bool, ptr interface{}, labels ...string) {
 	t.Helper()
-	if ptr != nil {
+	if !isNil(ptr) {
 		logPass(t, "expected not nil", labels)
 		return
 	}
@@ -25,4 +28,8 @@ func NotNil(t *testing.T, fatal bool, ptr interface{}, labels ...string) {
 	if fatal {
 		t.FailNow()
 	}
+}
+
+func isNil(ptr interface{}) bool {
+	return reflect.ValueOf(ptr).IsZero()
 }
